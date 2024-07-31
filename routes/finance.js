@@ -63,7 +63,7 @@ router.post('/finance-item/:financeId', authenticateToken, async (req, res) => {
         if (financeId && ObjectId.isValid(financeId)) {
             objectId = new ObjectId(financeId);
         } else {
-            objectId = new ObjectId(); // Generate a new ObjectId if financeId is null or invalid
+            objectId = new ObjectId();
         }
         const collection = database.collection(`Finance-items`);
 

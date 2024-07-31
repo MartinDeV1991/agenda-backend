@@ -44,7 +44,12 @@ router.post('/todo-item/:activityId', authenticateToken, async (req, res) => {
     try {
         const userId = new ObjectId(req.user.userId);
         const activityId = req.params.activityId;
-        const objectId = new ObjectId(activityId);
+        let objectId;
+        if (activityId && ObjectId.isValid(activityId)) {
+            objectId = new ObjectId(activityId);
+        } else {
+            objectId = new ObjectId();
+        }
         const collection = database.collection(`Todo-items`);
 
         const activity = req.body;
