@@ -27,11 +27,23 @@ let database;
     database = client.db('Agenda');
 })();
 
-router.get('/todo-items', authenticateToken, async (req, res) => {
+// router.get('/todo-items', authenticateToken, async (req, res) => {
+//     try {
+//         const userId = new ObjectId(req.user.userId);
+//         const collection = database.collection('Todo-items');
+//         const cursor = await collection.find({ userId: userId });
+//         const documents = await cursor.toArray();
+//         res.json(documents);
+//     } catch (error) {
+//         console.error('Error retrieving data from MongoDB:', error);
+//         res.status(500).json({ error: 'Error retrieving data from MongoDB' });
+//     }
+// });
+
+router.get('/todo-items', async (req, res) => {
     try {
-        const userId = new ObjectId(req.user.userId);
         const collection = database.collection('Todo-items');
-        const cursor = await collection.find({ userId: userId });
+        const cursor = await collection.find({});
         const documents = await cursor.toArray();
         res.json(documents);
     } catch (error) {
@@ -39,6 +51,7 @@ router.get('/todo-items', authenticateToken, async (req, res) => {
         res.status(500).json({ error: 'Error retrieving data from MongoDB' });
     }
 });
+
 
 router.post('/todo-item/:activityId', authenticateToken, async (req, res) => {
     try {
